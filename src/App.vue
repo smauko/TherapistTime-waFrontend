@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <nav class="side-navigation" >
-      <h2 style="color:white">TherapistTime</h2>
+      <h2 style="color:white; margin-top: 10px;">TherapistTime</h2>
       <ul >
         
         <img v-if="!user!=null" style="width: 230px;" src="../src/assets/landing.png" alt="Landing Image">
