@@ -1,13 +1,12 @@
 <template>
   <div id="app">
     <nav class="side-navigation" >
-      <h2 style="color:white; margin-top: 10px;">TherapistTime</h2>
-      <ul >
-        
-        <img v-if="!user!=null" style="width: 230px;" src="../src/assets/landing.png" alt="Landing Image">
-        
-        <li v-if="user!=null"><router-link to="/home">Home</router-link></li>
-        <li v-if="user!=null"><router-link to="/about">About</router-link></li>
+      <h2 style="color:white; margin-top: 10px;"><router-link to="/">TherapistTime</router-link></h2>
+      <ul>    
+
+        <img style="width: 230px;" src="../src/assets/landing.png" alt="Landing Image">
+        <li ><router-link to="/">Vidjet cemo</router-link></li>
+        <li ><router-link to="/">Vidjet cemo</router-link></li>
 
       </ul>
     </nav>
@@ -18,7 +17,7 @@
 </template>
 
 <script>
-let user = null;
+
 export default {
   name: 'App'
 }
