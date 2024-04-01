@@ -2,7 +2,7 @@
     <v-app>
     <v-sheet style="margin-top: 10%;"  class="mx-auto" width="300">
       <h2>Registracija</h2>
-  <v-form fast-fail @submit.prevent>
+  <v-form fast-fail >
     <v-text-field
       v-model="ime"
       :rules="firstNameRules"
@@ -27,12 +27,13 @@
       >
         <template v-slot:activator="{ on, attrs }">
           <v-text-field
-            v-model="date"
+            v-model="datum_rodenja"
             label="Datum rođenja"
             prepend-icon="mdi-calendar"
             readonly
             v-bind="attrs"
             v-on="on"
+            required
           ></v-text-field>
         </template>
         <v-date-picker
@@ -67,7 +68,6 @@
         type="email"
         required
       ></v-text-field>
-
     <v-text-field
             v-model="password"
             :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'"
@@ -81,21 +81,22 @@
           ></v-text-field>
       
 
-    <v-btn class="mt-2" type="submit" block>Registriraj se</v-btn>
+    <v-btn class="mt-2"  @click="signUp" block>Registriraj se</v-btn>
   </v-form>
   <p style="margin-top: 10%;">Imaš račun? <a href="/login">Prijavi se!</a></p>
-</v-sheet>  
+</v-sheet>
 </v-app>
 </template>
 
 
 <script>
+import axios from 'axios';
 
 export default {
   data(){
     return{
       ///// podaci za bazu
-      ime:"sara",
+      ime:"",
       prezime:"",
       datum_rodenja:"",
       uloga:"",
@@ -103,7 +104,6 @@ export default {
       password:"",
 
       /////ostalo je cisto za vuetify
-      date: (new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10),
       menu2: false,
       row: null,
       show1: false,
@@ -132,7 +132,44 @@ export default {
   }
   },
   mounted() {
+    
 },
+methods: {
+  datumConfig(datum){
+    const dijelovi = datum.split('-');
+    const uredeniDatum = dijelovi[2] + '.' + dijelovi[1] + '.' + dijelovi[0]+ '.';
+    return(uredeniDatum);
+  },
+
+signUp() {
+  if(!this.ime || 
+        !this.prezime || 
+        !this.datum_rodenja || 
+        !this.uloga || 
+        !this.email ||
+        !this.password){
+        alert("Popuni sve podatke prije registracije!");}
+        else{
+  const userData ={
+     ime: this.ime,
+     prezime: this.prezime,
+     datum_rodenja: this.datumConfig(this.datum_rodenja),
+     uloga: this.uloga,
+     email: this.email,
+     password: this.password
+  };
+
+  axios.post('http://localhost:3000/signup', userData)
+  .then(response => {
+    console.log('Response:', response.data);
+    this.$router.replace("/");
+  })
+  .catch(error => {
+    console.error('Error:', error); 
+  });}
+},
+}
+
   
 
 };
