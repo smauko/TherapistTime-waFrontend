@@ -5,8 +5,8 @@
       <ul>    
 
         <img style="width: 230px;" src="../src/assets/landing.png" alt="Landing Image">
-        <li ><router-link to="/">Vidjet cemo</router-link></li>
-        <li ><router-link to="/">Vidjet cemo</router-link></li>
+        <!-- <li ><router-link to="/">Vidjet cemo</router-link></li>
+        <li ><router-link to="/">Vidjet cemo</router-link></li>-->
 
       </ul>
     </nav>
@@ -19,7 +19,13 @@
 <script>
 
 export default {
-  name: 'App'
+  name: 'App',
+  methods:{
+      logOut(){
+        localStorage
+      },
+
+      }
 }
 </script>
 

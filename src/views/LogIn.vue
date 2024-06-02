@@ -2,7 +2,7 @@
     <v-app >
     <v-sheet style="margin-top:20% ;"class="mx-auto" width="300">
       <h2>Prijava</h2>
-  <v-form fast-fail @submit.prevent>
+  <v-form fast-fail>
     
     <v-text-field
             v-model="email"
@@ -22,7 +22,7 @@
             required
             @click:append="show1 = !show1"
           ></v-text-field>
-    <v-btn class="mt-2" type="submit" block>Prijavi se</v-btn>
+    <v-btn class="mt-2" @click="logIn" block>Prijavi se</v-btn>
     
   </v-form>
   <p style="margin-top: 10%;">Nemaš račun? <a href="/signup">Registriraj se!</a></p>
@@ -33,6 +33,8 @@
 
 
  <script>
+ import axios from 'axios';
+
   export default {
     data () {
       return {
@@ -50,5 +52,26 @@
         },
       }
     },
-  }
+    methods:{
+      logIn(){
+        const userData = {
+          email: this.email,
+          password: this.password
+        }
+      axios.post('http://localhost:3000/login', userData)
+      .then(response => {
+      localStorage.setItem('user', JSON.stringify(response.data));
+      alert("Uspješno ste ulogirani!")
+      console.log('Response:', response.data);
+      this.$router.replace("/");
+      
+      })
+      .catch(error => {
+      alert("Pokušajte ponovno!")
+      console.error('Error:', error); 
+  });}
+
+      }
+    }
+  
 </script>
