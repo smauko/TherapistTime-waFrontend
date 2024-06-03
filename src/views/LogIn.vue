@@ -63,7 +63,7 @@
       localStorage.setItem('user', JSON.stringify(response.data));
       alert("Uspješno ste ulogirani!")
       console.log('Response:', response.data);
-      this.$router.replace("/");
+      this.$router.replace("/zakazanitermini");
       
       })
       .catch(error => {

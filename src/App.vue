@@ -4,29 +4,47 @@
       <h2 style="color:white; margin-top: 10px;"><router-link to="/">TherapistTime</router-link></h2>
       <ul>    
 
-        <img style="width: 230px;" src="../src/assets/landing.png" alt="Landing Image">
-        <!-- <li ><router-link to="/">Vidjet cemo</router-link></li>
-        <li ><router-link to="/">Vidjet cemo</router-link></li>-->
+        <img v-if="uloga()==False" style="width: 230px;" src="../src/assets/landing.png" alt="Landing Image">
+        <li v-if="uloga()=='Pacijent'"><router-link to="/zakazanitermini">Zakazani termini</router-link></li>
+        <li v-if="uloga()=='Pacijent'"><router-link to="/zakazitermin">Zakaži termin</router-link></li>
+        <li v-if="uloga()=='Pacijent'"><router-link to="/ocijenidoktora">Ocijeni doktora</router-link></li>
+        <li v-if="uloga()=='Pacijent'"><router-link to="/pregledprofila">Pregled profila</router-link></li>
+        <li style="margin-bottom: 10;" v-if="uloga()=='Pacijent' || uloga()=='Doktor'"><router-link to="/">Log Out</router-link></li>
 
       </ul>
     </nav>
     <div class="content">
     <router-view/>
-  </div>
-  </div>
+    </div>
+</div>
 </template>
 
 <script>
 
 export default {
   name: 'App',
+  mounted(){
+    
+  },
   methods:{
-      logOut(){
-        localStorage
+    uloga(){
+        let user = JSON.parse(localStorage.getItem('user'));
+        let uloga;
+        if(user != null){
+          uloga = user.uloga;
+          return uloga;
+        }
+        return false;
       },
 
+      logOut(){
+        localStorage.removeItem('user');
+        this.$router.replace("/");
+      },
+    
+    }
+
       }
-}
 </script>
 
 <style lang="scss">

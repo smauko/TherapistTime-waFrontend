@@ -162,8 +162,8 @@ signUp() {
   axios.post('http://localhost:3000/signup', userData)
   .then(response => {
     console.log('Response:', response.data);
-    alert('Uspješna registracija!');
-    this.$router.replace("/zakazanitermini");
+    alert('Uspješna registracija! Molimo da se sa istim podacima prijavite!');
+    this.$router.replace("/signin");
   })
   .catch(error => {
     alert('Pokušajte ponovno!');
