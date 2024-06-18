@@ -39,6 +39,7 @@
           sm="6"
         >
         <v-textarea 
+        counter
         label="Kratki opis epizode/napadaja"
         v-model="opisEpizode"
         outlined />
@@ -164,14 +165,18 @@ import axios from 'axios';
     
   },
   methods: {
+    formatDatum(dateString) {
+    const [year, month, day] = dateString.split('-');
+    return `${day}.${month}.${year}.`;
+},
     promjena(){
       this.svi_termini=[];
       if(this.doktor != "" && this.datum != ""){
         //console.log(this.doktor, this.datum); 
         let paramDoktor = this.doktor.match(/\(([^)]+)\)/)[1];
-        let paramDatum = this.datum; 
+        let paramDatum = this.formatDatum(this.datum); 
         console.log("primjetio sam promjenu",this.doktor, this.datum);
-        axios.get('http://localhost:3000/zakazanitermin/dostupnitermini',{params: {
+        axios.get('http://localhost:3000/zakazitermin/dostupnitermini',{params: {
                 param1: paramDoktor,
                 param2: paramDatum
             }})
@@ -199,7 +204,7 @@ import axios from 'axios';
     dohvatiDoktore(){
       this.doktori = [];
 
-      axios.get('http://localhost:3000/zakazanitermin/doktori')
+      axios.get('http://localhost:3000/zakazitermin/doktori')
       .then(response => {
       let data = response.data;
       this.doktori = data.map(doktor => `${doktor.Ime} ${doktor.Prezime} (${doktor.Email})`);
@@ -221,11 +226,16 @@ import axios from 'axios';
         !this.vrijeme || 
         !this.doktor){
         alert("Popuni sve podatke prije registracije!");}
+        else if (this.opisEpizode.length > 300) {
+          alert(
+                  "Maksimalan broj znakova za opis epizode je 300 znakova, doktoru ćete kasnije objašnjavati u detalje!"
+                );
+        } 
         else{
   const terminData ={
     opis_epizode: this.opisEpizode,
     vrsta_epizode: this.vrstaEpizode,
-    datum_termina: this.datum,
+    datum_termina: this.formatDatum(this.datum),
     vrijeme_termina: this.vrijeme,
     doktor: this.doktor.match(/\(([^)]+)\)/)[1],
     pacijent: pacijent,
