@@ -172,6 +172,22 @@ signUp() {
 
   });}
 },
+ sviDoktori(){
+
+  axios.get("http://localhost:3000/zakazitermin")
+  .then(response => {
+    console.log('Response:', response.data);
+    alert('Uspješna registracija! Molimo da se sa istim podacima prijavite!');
+    this.$router.replace("/signin");
+  })
+  .catch(error => {
+    alert('Pokušajte ponovno!');
+    console.error('Error:', error.response); 
+    
+
+  });
+
+ },
 }
 
   
