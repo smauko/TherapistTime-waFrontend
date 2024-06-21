@@ -31,7 +31,7 @@ export default {
   },
   mounted(){
   this.dohvatiTermine();
-  console.log(this.termini);
+  console.log(this.termini.idTermina);
   },
   methods: {
     dohvatiTermine(){

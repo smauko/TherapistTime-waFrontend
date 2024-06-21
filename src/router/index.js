@@ -35,6 +35,14 @@ const routes = [
     name: 'Termin',
     component: () => import(/* webpackChunkName: "about" */ '../views/Pacijent-PrikazTermina.vue')
   },
+  {
+    path: '/ocijenidoktora',
+    name: 'OcijeniDoktora',
+    component: () => import(/* webpackChunkName: "about" */ '../views/Pacijent-OcijeniDoktora.vue')
+  },
+
+
+
 
 
 ];
