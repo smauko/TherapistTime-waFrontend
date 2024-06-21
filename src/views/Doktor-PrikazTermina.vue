@@ -24,13 +24,12 @@
           sm="6"
         >
         <p style="margin-left: 20%;" >
-        <b>Odabrani doktor:</b> <br>
+        <b>Podaci o pacijentu:</b> <br>
         <b>Ime:</b> {{ prikazTermina.Ime }}
         <br>
         <b>Prezime:</b> {{ prikazTermina.Prezime }}
         <br>
-        <b>Datum rođenja:</b> {{ prikazTermina.DatumRodenja }}<br>
-        <b>Prosječna ocijena doktora:</b> {{ avgOcijenaDoktora }}</p>
+        <b>Datum rođenja:</b> {{ prikazTermina.DatumRodenja }}<br> </p>
         </v-col>
   
         <v-col style="margin-top: 5%;"
@@ -85,12 +84,12 @@
 </v-col>
 <v-col class="d-flex" cols="12" sm="6">
   <v-btn v-if="prikazTermina.status=='odrađen'" style="margin-left: 30%; margin-top: -20px;"
-      outlined
-      color="indigo"
-      @click="dialog = true"
+    outlined
+    color="indigo"
+    @click="dialog = true"
       
     >
-      Pregled doktorove bilješke    </v-btn>
+      Napiši sažetak termina    </v-btn>
   
 </v-col>
         
@@ -101,16 +100,20 @@
             <span class="headline">{{ prikazTermina.Ime }} {{ prikazTermina.Prezime }} -> {{ prikazTermina.vrstaEpizode }} </span>
           </v-card-title>
           <v-card-text>
-           <p>Doktor je napisao sažetak vašeg termina:</p>
+            <p>Napišite kratak sažetak odrađenog termina(300 znakova min.)</p>
+            <v-textarea 
+        counter
+        label="Kratki sažetak termina"
+        v-model="sazetakTermina"
+        outlined />
+    
           </v-card-text>
-          <v-card-subtitle><b>{{ prikazTermina.sazetak_termina }}</b></v-card-subtitle>
           <v-card-actions>
             <v-spacer></v-spacer>
-            <v-btn color="blue darken-1" text  @click="dialog=false" >Zatvori</v-btn>
+            <v-btn color="blue darken-1" text  @click="posaljiSazetak()" >Pošalji</v-btn>
           </v-card-actions>
         </v-card>
       </v-dialog>
-
 
       
     </v-container>
@@ -138,8 +141,9 @@ import axios from 'axios';
     data() {
     return {
       prikazTermina: {},
-      avgOcijenaDoktora:"",
-      dialog: false
+      dialog: false,
+      sazetakTermina:""
+      
     };
     
   },
@@ -149,13 +153,36 @@ import axios from 'axios';
   computed: { 
   },
   async mounted() {
-    console.log(this.prikazTermina);
-     await this.prikaziTermin();
-    this.avgOcijena();
-    console.log("3",this.prikazTermina.doktor);
+    await this.prikaziTermin();
+    
     
   },
   methods: {
+    posaljiSazetak(){
+        if (this.sazetakTermina.length > 300) {
+          alert(
+                  "Maksimalan broj znakova za sažetak termina je 300 znakova!"
+                );
+        }
+        else{
+        const idTermina = this.$route.params.id;
+        let sazetakData= {
+            id: idTermina,
+            sazetak: this.sazetakTermina    
+        };
+        console.log(sazetakData);
+        axios.post('http://localhost:3000/dodajsazetak', sazetakData)
+  .then(response => {
+    console.log('Response:', response.data);
+    alert('Uspješno upisan sazetak!');
+    this.$router.replace("/zakazaniterminD");
+  })
+  .catch(error => {
+    alert('Pokušajte ponovno!');
+    console.error('Error:', error.response); 
+        })
+    }
+    },
     obrisiTermin(){
       const idTermina = this.$route.params.id;
       console.log(idTermina);
@@ -164,41 +191,24 @@ import axios from 'axios';
             }})
       .then(response => {
       alert("Termin je uspješno otkazan!");
-      this.$router.replace("/zakazanitermini");
+      this.$router.replace("/zakazaniterminD");
   }).catch(error => {
     console.error('Error:', error.response); 
         })
-
-
     },
 
-    avgOcijena(){
-      let param10 = this.prikazTermina.doktor;
-      console.log("avgocijena:", param10)
-      axios.get('http://localhost:3000/avgocijene', {params: {
-        param10: param10,
-      }})
-      .then(response => {
-      console.log(response.data);
-      this.avgOcijenaDoktora=response.data.averageOcijena;
-      }).catch(error => {
     
-    console.error('Error:', error.response); 
-        })
-
-      
-    },
     async prikaziTermin(){
       const idTermina = this.$route.params.id;
       console.log(idTermina);
-      await axios.get('http://localhost:3000/prikaztermina' ,{params: {
-                param4: idTermina,
+      await axios.get('http://localhost:3000/prikazterminadoktor' ,{params: {
+                param12: idTermina,
             }})
       .then(response => {
-      console.log("1",response.data.doktor);
+      //console.log("1",response.data.doktor);
       this.prikazTermina = response.data;
-      console.log("2",this.prikazTermina.doktor);
-      console.log("Ovo je iz funkcije", this.prikazTermina);
+      //console.log("2",this.prikazTermina.doktor);
+      //console.log("Ovo je iz funkcije", this.prikazTermina);
       this.avgOcijena;
       
   }).catch(error => {

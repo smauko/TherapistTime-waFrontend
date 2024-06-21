@@ -40,6 +40,16 @@ const routes = [
     name: 'OcijeniDoktora',
     component: () => import(/* webpackChunkName: "about" */ '../views/Pacijent-OcijeniDoktora.vue')
   },
+  {
+    path: '/zakazaniterminD',
+    name: 'ZakazaniTerminiDoktorView',
+    component: () => import(/* webpackChunkName: "about" */ '../views/Doktor-ZakazaniTermini.vue')
+  },
+  {
+    path: '/terminD/:id',
+    name: 'TerminDoktora',
+    component: () => import(/* webpackChunkName: "about" */ '../views/Doktor-PrikazTermina.vue')
+  },
 
 
 

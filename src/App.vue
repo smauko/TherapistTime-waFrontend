@@ -9,6 +9,7 @@
         <li v-if="uloga()=='Pacijent'"><router-link to="/zakazitermin">Zakaži termin</router-link></li>
         <li v-if="uloga()=='Pacijent'"><router-link to="/ocijenidoktora">Ocijeni doktora</router-link></li>
         <li v-if="uloga()=='Pacijent'"><router-link to="/pregledprofila">Pregled profila</router-link></li>
+        <li v-if="uloga()=='Doktor'"><router-link to="/zakazaniterminD">Zakazani termini</router-link></li>
         <li style="margin-bottom: 10;" v-if="uloga()=='Pacijent' || uloga()=='Doktor'"><a href="#" @click.prevent="logOut()">Log Out</a></li>
 
       </ul>
