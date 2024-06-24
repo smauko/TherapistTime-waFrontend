@@ -70,7 +70,7 @@
             param9: this.ocijena    
         };
         console.log(ocijenaData);
-        axios.post('http://localhost:3000/ocijenidoktora', ocijenaData)
+        axios.post('https://therapisttime-wabackend.onrender.com/ocijenidoktora', ocijenaData)
   .then(response => {
     console.log('Response:', response.data);
     alert('Uspješno ocijenjen doktor!');
@@ -86,7 +86,7 @@
     avgOcijena(){
       let param10 = this.info.Email;
       console.log("avgocijena:", param10)
-      axios.get('http://localhost:3000/avgocijene', {params: {
+      axios.get('https://therapisttime-wabackend.onrender.com/avgocijene', {params: {
         param10: param10,
       }})
       .then(response => {
