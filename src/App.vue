@@ -6,10 +6,11 @@
 
         <img v-if="uloga()==false" style="width: 230px;" src="../src/assets/landing.png" alt="Landing Image">
         <li v-if="uloga()=='Pacijent'"><router-link to="/zakazanitermini">Zakazani termini</router-link></li>
+        <li v-if="uloga()=='Doktor'"><router-link to="/zakazaniterminD">Zakazani termini</router-link></li>
         <li v-if="uloga()=='Pacijent'"><router-link to="/zakazitermin">Zakaži termin</router-link></li>
         <li v-if="uloga()=='Pacijent'"><router-link to="/ocijenidoktora">Ocijeni doktora</router-link></li>
-        <li v-if="uloga()=='Pacijent'"><router-link to="/pregledprofila">Pregled profila</router-link></li>
-        <li v-if="uloga()=='Doktor'"><router-link to="/zakazaniterminD">Zakazani termini</router-link></li>
+        <li v-if="uloga()!=false"><router-link to="/prikazprofila">Pregled profila</router-link></li>
+        
         <li style="margin-bottom: 10;" v-if="uloga()=='Pacijent' || uloga()=='Doktor'"><a href="#" @click.prevent="logOut()">Log Out</a></li>
 
       </ul>

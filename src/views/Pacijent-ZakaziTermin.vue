@@ -176,7 +176,7 @@ import axios from 'axios';
         let paramDoktor = this.doktor.match(/\(([^)]+)\)/)[1];
         let paramDatum = this.formatDatum(this.datum); 
         console.log("primjetio sam promjenu",this.doktor, this.datum);
-        axios.get('http://localhost:3000/zakazitermin/dostupnitermini',{params: {
+        axios.get('https://therapisttime-wabackend.onrender.com/zakazitermin/dostupnitermini',{params: {
                 param1: paramDoktor,
                 param2: paramDatum
             }})
@@ -204,7 +204,7 @@ import axios from 'axios';
     dohvatiDoktore(){
       this.doktori = [];
 
-      axios.get('http://localhost:3000/zakazitermin/doktori')
+      axios.get('https://therapisttime-wabackend.onrender.com/zakazitermin/doktori')
       .then(response => {
       let data = response.data;
       this.doktori = data.map(doktor => `${doktor.Ime} ${doktor.Prezime} (${doktor.Email})`);
@@ -244,7 +244,7 @@ import axios from 'axios';
 
   };
 
-  axios.post('http://localhost:3000/zakazitermin', terminData)
+  axios.post('https://therapisttime-wabackend.onrender.com/zakazitermin', terminData)
   .then(response => {
     console.log('Response:', response.data);
     alert('Uspješno zakazan termin!');

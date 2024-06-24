@@ -159,7 +159,7 @@ import axios from 'axios';
     obrisiTermin(){
       const idTermina = this.$route.params.id;
       console.log(idTermina);
-      axios.delete('http://localhost:3000/izbrisitermin' ,{params: {
+      axios.delete('https://therapisttime-wabackend.onrender.com/izbrisitermin' ,{params: {
                 param5: idTermina,
             }})
       .then(response => {
@@ -175,7 +175,7 @@ import axios from 'axios';
     avgOcijena(){
       let param10 = this.prikazTermina.doktor;
       console.log("avgocijena:", param10)
-      axios.get('http://localhost:3000/avgocijene', {params: {
+      axios.get('https://therapisttime-wabackend.onrender.com/avgocijene', {params: {
         param10: param10,
       }})
       .then(response => {
@@ -191,7 +191,7 @@ import axios from 'axios';
     async prikaziTermin(){
       const idTermina = this.$route.params.id;
       console.log(idTermina);
-      await axios.get('http://localhost:3000/prikaztermina' ,{params: {
+      await axios.get('https://therapisttime-wabackend.onrender.com/prikaztermina' ,{params: {
                 param4: idTermina,
             }})
       .then(response => {

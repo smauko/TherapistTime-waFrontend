@@ -37,7 +37,7 @@ export default {
     dohvatiTermine(){
       let user = JSON.parse(localStorage.getItem('user'));
       let pacijent = user.email;
-      axios.get('http://localhost:3000/zakazanitermini',{params: {
+      axios.get('https://therapisttime-wabackend.onrender.com/zakazanitermini',{params: {
                 param3: pacijent,
             }})
       .then(response => {

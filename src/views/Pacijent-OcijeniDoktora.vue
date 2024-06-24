@@ -39,7 +39,7 @@
       let user = JSON.parse(localStorage.getItem('user'));
       let pacijent = user.email;
       console
-      axios.get('http://localhost:3000/odradenidoktori',{params: {
+      axios.get('https://therapisttime-wabackend.onrender.com/odradenidoktori',{params: {
                 param6: pacijent,
             }})
       .then(response => {

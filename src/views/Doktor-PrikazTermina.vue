@@ -171,7 +171,7 @@ import axios from 'axios';
             sazetak: this.sazetakTermina    
         };
         console.log(sazetakData);
-        axios.post('http://localhost:3000/dodajsazetak', sazetakData)
+        axios.post('https://therapisttime-wabackend.onrender.com/dodajsazetak', sazetakData)
   .then(response => {
     console.log('Response:', response.data);
     alert('Uspješno upisan sazetak!');
@@ -186,7 +186,7 @@ import axios from 'axios';
     obrisiTermin(){
       const idTermina = this.$route.params.id;
       console.log(idTermina);
-      axios.delete('http://localhost:3000/izbrisitermin' ,{params: {
+      axios.delete('https://therapisttime-wabackend.onrender.com/izbrisitermin' ,{params: {
                 param5: idTermina,
             }})
       .then(response => {
@@ -201,7 +201,7 @@ import axios from 'axios';
     async prikaziTermin(){
       const idTermina = this.$route.params.id;
       console.log(idTermina);
-      await axios.get('http://localhost:3000/prikazterminadoktor' ,{params: {
+      await axios.get('https://therapisttime-wabackend.onrender.com/prikazterminadoktor' ,{params: {
                 param12: idTermina,
             }})
       .then(response => {

@@ -58,7 +58,7 @@
           email: this.email,
           password: this.password
         }
-      axios.post('http://localhost:3000/login', userData)
+      axios.post('https://therapisttime-wabackend.onrender.com/login', userData)
       .then(response => {
       localStorage.setItem('user', JSON.stringify(response.data));
       alert("Uspješno ste ulogirani!")

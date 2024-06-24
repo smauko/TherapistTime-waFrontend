@@ -159,11 +159,11 @@ signUp() {
      password: this.password
   };
 
-  axios.post('http://localhost:3000/signup', userData)
+  axios.post('https://therapisttime-wabackend.onrender.com/signup', userData)
   .then(response => {
     console.log('Response:', response.data);
     alert('Uspješna registracija! Molimo da se sa istim podacima prijavite!');
-    this.$router.replace("/signin");
+    this.$router.replace("/login");
   })
   .catch(error => {
     alert('Pokušajte ponovno!');
@@ -171,21 +171,7 @@ signUp() {
     
 
   });}
-},
- sviDoktori(){
 
-  axios.get("http://localhost:3000/zakazitermin")
-  .then(response => {
-    console.log('Response:', response.data);
-    alert('Uspješna registracija! Molimo da se sa istim podacima prijavite!');
-    this.$router.replace("/signin");
-  })
-  .catch(error => {
-    alert('Pokušajte ponovno!');
-    console.error('Error:', error.response); 
-    
-
-  });
 
  },
 }
